@@ -1,0 +1,46 @@
+services:
+  postgres:
+    container_name: my_postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: mareen
+      POSTGRES_PASSWORD: 990807
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - microservice-net
+    restart: unless-stopped
+
+
+  mongodb:
+    container_name: my_mongo
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mareen
+      - MONGO_INITDB_ROOT_PASSWORD=mareen
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo:/data/db
+    restart: unless-stopped
+
+
+  mail-dev:
+    container_name: my_mail_dev
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+
+
+networks:
+  microservice-net:
+    driver: bridge
+
+
+volumes:
+  postgres:
+  mongo:
