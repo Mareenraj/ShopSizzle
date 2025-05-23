@@ -18,7 +18,7 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String email;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 }
