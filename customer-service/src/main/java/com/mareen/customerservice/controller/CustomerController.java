@@ -20,8 +20,4 @@ public class CustomerController {
     public ResponseEntity<String> createCustomer(@RequestBody @Valid CustomerRequestDto customerRequestDto) {
         return ResponseEntity.ok(customerService.createCustomer(customerRequestDto));
     }
-
-//    public ResponseEntity<String> updateCustomer(@RequestBody @Valid CustomerRequestDto customerRequestDto) {
-//        return ResponseEntity.ok(customerService.updateCustomer(customerRequestDto));
-//    }
 }

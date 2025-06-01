@@ -1,6 +1,7 @@
 package com.mareen.customerservice.service;
 
 import com.mareen.customerservice.dto.CustomerRequestDto;
+import com.mareen.customerservice.exception.EmailAlreadyExistsException;
 import com.mareen.customerservice.mapper.CustomerMapper;
 import com.mareen.customerservice.repository.CustomerRepository;
 import jakarta.validation.Valid;
@@ -15,6 +16,9 @@ public class CustomerService {
     private final CustomerMapper customerMapper;
 
     public String createCustomer(@Valid CustomerRequestDto customerRequestDto) {
+        if (customerRepository.existsByEmail(customerRequestDto.email())){
+            throw new EmailAlreadyExistsException("This email is already used!");
+        }
         customerRepository.save(customerMapper.toCustomer(customerRequestDto));
         return "customer created successfully";
     }
