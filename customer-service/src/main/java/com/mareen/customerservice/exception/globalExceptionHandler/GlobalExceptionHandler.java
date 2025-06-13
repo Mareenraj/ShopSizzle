@@ -1,6 +1,7 @@
 package com.mareen.customerservice.exception.globalExceptionHandler;
 
 import com.mareen.customerservice.dto.ApiError;
+import com.mareen.customerservice.exception.CustomerNotFoundException;
 import com.mareen.customerservice.exception.EmailAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,6 +22,18 @@ public class GlobalExceptionHandler {
                 LocalDateTime.now(),
                 HttpStatus.CONFLICT.value(),
                 "Conflict",
+                exception.getMessage(),
+                request.getDescription(false)
+        );
+    }
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiError handleCustomerNotFoundException(CustomerNotFoundException exception, WebRequest request) {
+        return new ApiError(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                "Not Found",
                 exception.getMessage(),
                 request.getDescription(false)
         );

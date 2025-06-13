@@ -1,5 +1,7 @@
 package com.mareen.customerservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,5 +26,6 @@ public class Address {
     private String houseNumber;
     private String zipCode;
     @ManyToMany(mappedBy = "addresses", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonManagedReference
     private Set<Customer> customers = new HashSet<>();
 }
